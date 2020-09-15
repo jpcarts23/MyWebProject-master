@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="18c6383f759040868a45908c38fcf651" Name="Diagram1">
+        <EntityTypeShape EntityType="TMGModel.DetailsOfRequest" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMGModel.LoginRequest" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMGModel.TMGUserAccess" Width="1.5" PointX="5.375" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMGModel.UserInfo" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="TMGModel.FK_DetailsOfRequest_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="TMGModel.FK_LoginRequest_UserInfo" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TMGModel.Channel" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="TMGModel.Description" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="TMGModel.Title" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="TMGModel.RequestHistory" Width="1.5" PointX="5.375" PointY="6.375" />
+        <AssociationConnector Association="TMGModel.FK_RequestHistory_DetailsOfRequest" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

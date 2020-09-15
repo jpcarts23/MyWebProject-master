@@ -1,0 +1,32 @@
+﻿@model MyWebProject.Models.LoginRequest
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@using (Html.BeginForm("VerifyLogin", "Login", FormMethod.Post))
+{
+    <div style="background-color:black;opacity:0.7;border-radius: 5px;padding: 5px 10px 0px 10px">
+        <form>
+            <fieldset>
+
+                <legend style="color:white;text-align:center;font-weight:bold">LOGIN</legend>
+                <div class="form-group">
+                    <label for="Username" style="color:white">Email address</label>
+                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = "Enter Username", required = "required"})
+                    @Html.ValidationMessageFor(model => model.Username)
+                </div>
+                <div class="form-group" style="margin-bottom: 5px">
+                    <label for="Password" style="color:white">Password</label>
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter Password", required = "required"})
+                    @Html.ValidationMessageFor(model => model.Password)
+                    <button type="submit" class="btn btn-primary" style="width:100%;border-top-width:1px; margin-top:15px;border-color:darkgreen;background-color:green">LOGIN</button>
+                    <label class="field-validation-error" style="width:100%; margin-top:5px;margin-bottom:0px;text-align:center">@Html.DisplayFor(model => model.LoginError)</label>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+}

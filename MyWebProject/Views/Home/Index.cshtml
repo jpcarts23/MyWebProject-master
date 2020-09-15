@@ -1,0 +1,95 @@
+﻿@using MyWebProject.Models
+@model UserInfo
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    new UserInfo();
+}
+
+<div style="padding-bottom:10px;padding-top:5px">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">CREATE NEW USER</button>
+</div>
+@using (Ajax.BeginForm("SaveUserInfo",
+        new AjaxOptions
+        {
+            HttpMethod = "Post",
+            OnSuccess = "OnSuccess",
+            OnFailure = "OnFailure"
+        }))
+{
+    <div id="createUserModal">
+        <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Create New User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <label style="color:dimgray">User Access</label><br>
+                            @Html.DropDownListFor(model => model.Access, DropDownList.PriviledgeList, "Select Priviledge", new { @class = "custom-select", @required = "required" })<br><br>
+                            <label style="color:dimgray">Employee ID</label>
+                            @Html.TextBoxFor(model => model.Emp_ID, new { @class = "form-control", @placeholder = "Employee ID", @id = "Emp_ID", @required = "required" })<br>
+                            <label style="color:dimgray">First Name</label>
+                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @placeholder = "First Name", @required = "required" })<br>
+                            <label style="color:dimgray">Last Name</label>
+                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Last Name", @required = "required" })<br>
+                            <label style="color:dimgray">Department</label><br>
+                            @Html.DropDownListFor(model => model.Department, DropDownList.DepartmentList, "Select Department", new { @class = "custom-select", @required = "required" })<br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save changes">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@*<div id="saveAsDraft">
+    <div class="modal" tabindex="-1" role="dialog" id="saveAsDraftModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Save as Draft?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+<script type="text/javascript">
+    //function OnCancel() {
+    //    var id = document.getElementById("Emp_ID").value;
+    //    if (id.length > 0) {
+    //        $('#saveAsDraftModal').modal('show');
+    //    } else {
+    //        $('#addUserModal').modal('hide');
+    //    }
+    //}
+    function OnSuccess(response) {
+
+        alert(response);
+    }
+    function OnFailure(response) {
+
+        alert(response);
+    }
+</script>
+
+

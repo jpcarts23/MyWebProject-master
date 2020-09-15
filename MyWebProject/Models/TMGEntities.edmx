@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TMGModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Channel">
+          <Key>
+            <PropertyRef Name="Channel_Id" />
+          </Key>
+          <Property Name="Channel_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChannelName" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Description">
+          <Key>
+            <PropertyRef Name="Description_Id" />
+          </Key>
+          <Property Name="Description_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="DetailsOfRequest">
+          <Key>
+            <PropertyRef Name="Request_ID" />
+          </Key>
+          <Property Name="Request_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emp_ID" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="Channel" Type="nvarchar" MaxLength="10" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="CoveragePeriod" Type="nvarchar" MaxLength="50" />
+          <Property Name="GamePlan" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupportingDocuments" Type="nvarchar" MaxLength="50" />
+          <Property Name="Objectives" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mechanics" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResourcesNeeded" Type="nvarchar" MaxLength="30" />
+          <Property Name="Amount" Type="nvarchar" MaxLength="10" />
+          <Property Name="CostToSales" Type="nvarchar" MaxLength="10" />
+          <Property Name="AllocatedAnnualBudget" Type="nvarchar" MaxLength="10" />
+          <Property Name="YTDExpenses" Type="nvarchar" MaxLength="10" />
+          <Property Name="RemainingBudget" Type="nvarchar" MaxLength="10" />
+          <Property Name="DateNeeded" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="LoginRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emp_ID" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Username" Type="nchar" MaxLength="30" />
+          <Property Name="Password" Type="nchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="RequestHistory">
+          <Key>
+            <PropertyRef Name="RequestHistory_ID" />
+          </Key>
+          <Property Name="RequestHistory_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Request_ID" Type="int" Nullable="false" />
+          <Property Name="RequestHistoryStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Title">
+          <Key>
+            <PropertyRef Name="Title_Id" />
+          </Key>
+          <Property Name="Title_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Channel_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="TMGUserAccess">
+          <Key>
+            <PropertyRef Name="Access_Id" />
+          </Key>
+          <Property Name="Access_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccessName" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Access" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DetailsOfRequest_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="DetailsOfRequest" Type="Self.DetailsOfRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="DetailsOfRequest">
+              <PropertyRef Name="Emp_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginRequest_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="LoginRequest" Type="Self.LoginRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="LoginRequest">
+              <PropertyRef Name="Emp_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestHistory_DetailsOfRequest">
+          <End Role="DetailsOfRequest" Type="Self.DetailsOfRequest" Multiplicity="1" />
+          <End Role="RequestHistory" Type="Self.RequestHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DetailsOfRequest">
+              <PropertyRef Name="Request_ID" />
+            </Principal>
+            <Dependent Role="RequestHistory">
+              <PropertyRef Name="Request_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TMGModelStoreContainer">
+          <EntitySet Name="Channel" EntityType="Self.Channel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Description" EntityType="Self.Description" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetailsOfRequest" EntityType="Self.DetailsOfRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginRequest" EntityType="Self.LoginRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestHistory" EntityType="Self.RequestHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Title" EntityType="Self.Title" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TMGUserAccess" EntityType="Self.TMGUserAccess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DetailsOfRequest_UserInfo" Association="Self.FK_DetailsOfRequest_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="DetailsOfRequest" EntitySet="DetailsOfRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginRequest_UserInfo" Association="Self.FK_LoginRequest_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="LoginRequest" EntitySet="LoginRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestHistory_DetailsOfRequest" Association="Self.FK_RequestHistory_DetailsOfRequest">
+            <End Role="DetailsOfRequest" EntitySet="DetailsOfRequest" />
+            <End Role="RequestHistory" EntitySet="RequestHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TMGModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DetailsOfRequest">
+          <Key>
+            <PropertyRef Name="Request_ID" />
+          </Key>
+          <Property Name="Request_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emp_ID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Channel" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CoveragePeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GamePlan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupportingDocuments" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Objectives" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mechanics" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResourcesNeeded" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CostToSales" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="AllocatedAnnualBudget" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="YTDExpenses" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RemainingBudget" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DateNeeded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_DetailsOfRequest_UserInfo" FromRole="DetailsOfRequest" ToRole="UserInfo" />
+          <NavigationProperty Name="RequestHistories" Relationship="TMGModel.FK_RequestHistory_DetailsOfRequest" FromRole="DetailsOfRequest" ToRole="RequestHistory" />
+        </EntityType>
+        <EntityType Name="LoginRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emp_ID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_LoginRequest_UserInfo" FromRole="LoginRequest" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="TMGUserAccess">
+          <Key>
+            <PropertyRef Name="Access_Id" />
+          </Key>
+          <Property Name="Access_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccessName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Access" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DetailsOfRequests" Relationship="Self.FK_DetailsOfRequest_UserInfo" FromRole="UserInfo" ToRole="DetailsOfRequest" />
+          <NavigationProperty Name="LoginRequests" Relationship="Self.FK_LoginRequest_UserInfo" FromRole="UserInfo" ToRole="LoginRequest" />
+        </EntityType>
+        <Association Name="FK_DetailsOfRequest_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="DetailsOfRequest" Type="Self.DetailsOfRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="DetailsOfRequest">
+              <PropertyRef Name="Emp_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginRequest_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="LoginRequest" Type="Self.LoginRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="LoginRequest">
+              <PropertyRef Name="Emp_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TMGEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DetailsOfRequests" EntityType="Self.DetailsOfRequest" />
+          <EntitySet Name="LoginRequests" EntityType="Self.LoginRequest" />
+          <EntitySet Name="TMGUserAccesses" EntityType="Self.TMGUserAccess" />
+          <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+          <AssociationSet Name="FK_DetailsOfRequest_UserInfo" Association="Self.FK_DetailsOfRequest_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="DetailsOfRequest" EntitySet="DetailsOfRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginRequest_UserInfo" Association="Self.FK_LoginRequest_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="LoginRequest" EntitySet="LoginRequests" />
+          </AssociationSet>
+          <EntitySet Name="Channels" EntityType="TMGModel.Channel" />
+          <EntitySet Name="Descriptions" EntityType="TMGModel.Description" />
+          <EntitySet Name="Titles" EntityType="TMGModel.Title" />
+          <EntitySet Name="RequestHistories" EntityType="TMGModel.RequestHistory" />
+          <AssociationSet Name="FK_RequestHistory_DetailsOfRequest" Association="TMGModel.FK_RequestHistory_DetailsOfRequest">
+            <End Role="DetailsOfRequest" EntitySet="DetailsOfRequests" />
+            <End Role="RequestHistory" EntitySet="RequestHistories" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Channel">
+          <Key>
+            <PropertyRef Name="Channel_Id" />
+          </Key>
+          <Property Name="Channel_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChannelName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Description">
+          <Key>
+            <PropertyRef Name="Description_Id" />
+          </Key>
+          <Property Name="Description_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title_Id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Title">
+          <Key>
+            <PropertyRef Name="Title_Id" />
+          </Key>
+          <Property Name="Title_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Channel_Id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RequestHistory">
+          <Key>
+            <PropertyRef Name="RequestHistory_ID" />
+          </Key>
+          <Property Name="RequestHistory_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Request_ID" Type="Int32" Nullable="false" />
+          <Property Name="RequestHistoryStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DetailsOfRequest" Relationship="TMGModel.FK_RequestHistory_DetailsOfRequest" FromRole="RequestHistory" ToRole="DetailsOfRequest" />
+        </EntityType>
+        <Association Name="FK_RequestHistory_DetailsOfRequest">
+          <End Type="TMGModel.DetailsOfRequest" Role="DetailsOfRequest" Multiplicity="1" />
+          <End Type="TMGModel.RequestHistory" Role="RequestHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DetailsOfRequest">
+              <PropertyRef Name="Request_ID" />
+            </Principal>
+            <Dependent Role="RequestHistory">
+              <PropertyRef Name="Request_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TMGModelStoreContainer" CdmEntityContainer="TMGEntities">
+          <EntitySetMapping Name="DetailsOfRequests">
+            <EntityTypeMapping TypeName="TMGModel.DetailsOfRequest">
+              <MappingFragment StoreEntitySet="DetailsOfRequest">
+                <ScalarProperty Name="Request_ID" ColumnName="Request_ID" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Channel" ColumnName="Channel" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CoveragePeriod" ColumnName="CoveragePeriod" />
+                <ScalarProperty Name="GamePlan" ColumnName="GamePlan" />
+                <ScalarProperty Name="SupportingDocuments" ColumnName="SupportingDocuments" />
+                <ScalarProperty Name="Objectives" ColumnName="Objectives" />
+                <ScalarProperty Name="Mechanics" ColumnName="Mechanics" />
+                <ScalarProperty Name="ResourcesNeeded" ColumnName="ResourcesNeeded" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CostToSales" ColumnName="CostToSales" />
+                <ScalarProperty Name="AllocatedAnnualBudget" ColumnName="AllocatedAnnualBudget" />
+                <ScalarProperty Name="YTDExpenses" ColumnName="YTDExpenses" />
+                <ScalarProperty Name="RemainingBudget" ColumnName="RemainingBudget" />
+                <ScalarProperty Name="DateNeeded" ColumnName="DateNeeded" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginRequests">
+            <EntityTypeMapping TypeName="TMGModel.LoginRequest">
+              <MappingFragment StoreEntitySet="LoginRequest">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TMGUserAccesses">
+            <EntityTypeMapping TypeName="TMGModel.TMGUserAccess">
+              <MappingFragment StoreEntitySet="TMGUserAccess">
+                <ScalarProperty Name="Access_Id" ColumnName="Access_Id" />
+                <ScalarProperty Name="AccessName" ColumnName="AccessName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfoes">
+            <EntityTypeMapping TypeName="TMGModel.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Access" ColumnName="Access" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Channels">
+            <EntityTypeMapping TypeName="TMGModel.Channel">
+              <MappingFragment StoreEntitySet="Channel">
+                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
+                <ScalarProperty Name="Channel_Id" ColumnName="Channel_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Descriptions">
+            <EntityTypeMapping TypeName="TMGModel.Description">
+              <MappingFragment StoreEntitySet="Description">
+                <ScalarProperty Name="Title_Id" ColumnName="Title_Id" />
+                <ScalarProperty Name="DescName" ColumnName="DescName" />
+                <ScalarProperty Name="Description_Id" ColumnName="Description_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Titles">
+            <EntityTypeMapping TypeName="TMGModel.Title">
+              <MappingFragment StoreEntitySet="Title">
+                <ScalarProperty Name="Channel_Id" ColumnName="Channel_Id" />
+                <ScalarProperty Name="TitleName" ColumnName="TitleName" />
+                <ScalarProperty Name="Title_Id" ColumnName="Title_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestHistories">
+            <EntityTypeMapping TypeName="TMGModel.RequestHistory">
+              <MappingFragment StoreEntitySet="RequestHistory">
+                <ScalarProperty Name="RequestHistoryStatus" ColumnName="RequestHistoryStatus" />
+                <ScalarProperty Name="Request_ID" ColumnName="Request_ID" />
+                <ScalarProperty Name="RequestHistory_ID" ColumnName="RequestHistory_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

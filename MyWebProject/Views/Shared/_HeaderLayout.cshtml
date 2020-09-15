@@ -1,0 +1,121 @@
+﻿@*@{
+    if (Session["Id"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}*@
+<style>
+    .UserDropdown {
+        background-color: transparent;
+        color: white;
+        text-decoration: none;
+        padding: 2px 2px;
+        position: relative;
+        display: inline-block;
+        border-radius: 2px;
+    }
+
+    .UserDropdown .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 7px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+    }
+    .dropdown-submenu {
+        position: relative;
+        width:100px;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+        min-width: 100px;
+        margin-right:auto;
+        left: -110px;
+    }
+
+    #notifBadge {
+        top: -10px;
+        right: -10px;
+        padding: 1px 6px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+    }
+
+    #userDropDownMenu {
+        padding: 5px;
+        background-color: black;
+        opacity: 0.8;
+        border-radius: 2px;
+        min-width: 120px;
+    }
+    #notifDropDownMenu {
+        padding: 5px;
+        background-color: black;
+        border-radius: 2px;
+    }
+</style>
+
+<!DOCTYPE html>
+<html style="height:100%">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body background="~/Images/Background.png" style="height:100%">
+    <div style="position:absolute;top:15px;right:0;padding-right:15px">
+            <label style="color:white; margin-right:5px;">Welcome @Session["Username"]</label>
+            <a class="UserDropdown" id="dropDownMenu1" data-toggle="dropdown">
+                <img src="~/Images/user.png" alt="User" width="35" height="35">
+                <span class="badge">3</span>
+            </a>
+            <ul id="userDropDownMenu" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a role="menuitem" tabindex="-1" href="@Url.Action("Index","Profile")">My Profile</a></li>
+                <li><a role="menuitem" tabindex="-1" href="@Url.Action("Logout","Login")">Logout</a></li>
+                <li class="dropdown-submenu">
+                    <a class="test" tabindex="-1" href="#">Notification<small id="notifBadge" style="margin-left:5px">99</small><span class="caret"></span></a>
+                    <ul id="notifDropDownMenu" class="dropdown-menu">
+                        <li><a tabindex="-1" href="#">PWPR000000012</a></li>
+                        <li><a tabindex="-1" href="#">PWPR999999931</a></li>
+                        <li><a tabindex="-1" href="#">PWPR999123123</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <div>
+        @RenderBody()
+    </div>
+    <div style="position:absolute;bottom:0;left:0;padding-left:5px;width:100%">
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Matimco, Inc.</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.dropdown-submenu a.test').on("click", function (e) {
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    });
+
+    $(document).ready(function () {
+        $('#').on("click", function (e) {
+            var userDDM = $('#userDropDownMenu').attr('class');
+            if (userDDM == 'dropdown-menu show') {
+                alert('true');
+            }
+        });
+    });
+</script>

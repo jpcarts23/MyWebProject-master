@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_HeaderLayout.cshtml";
+}
+<div style="height:100%; width:100%; position:relative">
+    <div style="position:absolute; top:45%; left:50%; transform: translate(-50%,-50%);">
+        @if (ViewBag.Access == "Admin")
+        {
+            <div style="text-align:center; width:500px; margin: auto">
+                <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: center">
+                    <div style="text-align:center">
+                        <a href="#"><img src="~/Images/My Requests.png" height="100" width="100" /></a>
+                        <p>Tracker Request</p>
+                        <a href="~/Home/"><img src="~/Images/My Requests.png" height="100" width="100" /></a>
+                        <p>Create User</p>
+                    </div>
+                    <div style="text-align:center">
+                        <a href="#"><img src="~/Images/My Requests.png" height="100" width="100" /></a>
+                        <p>Generate Report</p>
+                        <a href="#"><img src="~/Images/My Requests.png" height="100" width="100" /></a>
+                        <p>Generate Report</p>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div style="text-align:center; width:500px; margin: auto">
+                <div style="display:flex; flex-direction: row; justify-content: space-evenly; align-items: center">
+                    <div style="text-align:center">
+                        <a href="~/DetailsOfRequest/Requests"><img src="~/Images/TMG Request.png" height="100" width="100" /></a>
+                        <p>TMG Request</p>
+                    </div>
+                    <div style="text-align:center">
+                        <a href="~/Home/Status"><img src="~/Images/My Requests.png" height="100" width="100" /></a>
+                        <p>My Requests</p>
+                    </div>
+
+                    @if (ViewBag.Access == "SalesVP/ChannelHead")
+                    {
+                        <div style="text-align:center">
+                            <a href="#"><img src="~/Images/Team Panel Requests.png" height="100" width="100" /></a>
+                            <p>Team Panel Requests</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

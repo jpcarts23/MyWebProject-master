@@ -1,0 +1,221 @@
+﻿@using MyWebProject.Models
+@model IEnumerable<DetailsOfRequest>
+
+@{
+    ViewBag.Title = "Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<h2>@ViewBag.Message</h2>
+
+<!-- The Table -->
+
+<div>
+    <table class="table table-hover" id="statusTable">
+        <thead>
+            <tr style="display:table;width:100%;table-layout:fixed">
+                <th scope="col">Date Filed</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody style="display:block;height:500px;overflow-y:auto">
+            @foreach (var item in Model)
+            {
+
+                <tr style="display:table;width:100%;table-layout:fixed">
+                    <td>@item.DateCreated.ToString("MM/dd/yyyy")</td>
+                    <td>@item.CoveragePeriod.Split('-').First().Split(' ')[0]</td>
+                    <td>@item.CoveragePeriod.Split('-').Last().Split(' ')[0]</td>
+                    <td>@item.Status</td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="javascript: GetInfo(@item.Request_ID);">SHOW</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div id="sectionModal">
+    <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding-top:5px;padding-bottom:5px">
+                    <div>
+                        <!-- Nav items -->
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist" style="margin-bottom:5px">
+                                <a class="nav-item nav-link active" id="nav-details-tab" data-toggle="tab" href="#nav-details" role="tab" aria-controls="nav-details" aria-selected="true">Details</a>
+                                <a class="nav-item nav-link" id="nav-requestHistory-tab" data-toggle="tab" href="#nav-requestHistory" role="tab" aria-controls="nav-requestHistory" aria-selected="false">History</a>
+                            </div>
+                        </nav>
+                        <!-- Tab panes -->
+                        <div class="tab-content" id="nav-tabContent">
+                                @******************
+                                ***** DETAILS *****
+                                ******************@
+                            <div class="tab-pane fade show active" id="nav-details" role="tabpanel" aria-labelledby="nav-details-tab" style="height:500px;overflow-x:hidden;overflow-y:auto">
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_channel">Channel</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_channel_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_title">Title</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_title_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_description">Description</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_description_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_gameplan">Game Plan</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_gameplan_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_suppdocu">Supporting Documents</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_suppdocu_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_objectives">Objectives</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_objectives_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_mechanics">Mechanics</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_mechanics_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_resneeded">Resources Needed</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_resneeded_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_amount">Amount</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_amount_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_costtosales">% Cost To Sales</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_costtosales_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_AllocatedAnnualBudget">Allocated Annual Budget</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_AllocatedAnnualBudget_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_ytdexpenses">YTD Expenses</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_ytdexpenses_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_remainingbudget">Remaining Budget</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_remainingbudget_txt"></label></div>
+                                </div>
+                                <hr style="margin-top:1px;margin-bottom:8px" />
+                                <div class="row">
+                                    <div class="col-6 col-sm-4"><label id="lbl_dateneeded">Date Needed</label></div>
+                                    <div class="col-6 col-sm-4"><label id="lbl_dateneeded_txt"></label></div>
+                                </div>
+                            </div>
+                            @******************
+                            ****  HISTORY  ****
+                            ******************@
+                            <div class="tab-pane fade" id="nav-requestHistory" role="tabpanel" aria-labelledby="nav-requestHistory-tab">
+                                <label id="lbl_requestid">Request ID : </label>
+                                <label id="lbl_requestid_txt"></label>
+                                <table class="table table-hover" id="requestHistoryTable">
+                                    <thead>
+                                        <tr style="display:table;width:100%;table-layout:fixed">
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">User</th>
+                                            <th scope="col">User Level</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="height:400px;overflow-y:auto;display:block">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function GetInfo(id) {
+        GetDetailsById(id);
+        GetHistoryById(id);
+    }
+    function GetDetailsById(id) {
+        var param = id;
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetDetailsById/",
+            datatype: "json",
+            data: "id=" + param,
+            success: function (res) {
+                $("#lbl_channel_txt").text(res.Channel);
+                $("#lbl_title_txt").text(res.Title);
+                $("#lbl_description_txt").text(res.Description);
+                $("#lbl_gameplan_txt").text(res.GamePlan);
+                $("#lbl_suppdocu_txt").text(res.SupportingDocuments);
+                $("#lbl_objectives_txt").text(res.Objectives);
+                $("#lbl_mechanics_txt").text(res.Mechanics);
+                $("#lbl_resneeded_txt").text(res.ResourcesNeeded);
+                $("#lbl_amount_txt").text(res.Amount);
+                $("#lbl_costtosales_txt").text(res.CostToSales);
+                $("#lbl_AllocatedAnnualBudget_txt").text(res.AllocatedAnnualBudget);
+                $("#lbl_ytdexpenses_txt").text(res.YTDExpenses);
+                $("#lbl_remainingbudget_txt").text(res.RemainingBudget);
+                var dateNeeded = new Date(parseInt(res.DateNeeded.substr(6))).toLocaleDateString();
+                $("#lbl_dateneeded_txt").text(dateNeeded);
+                $("#lbl_requestid_txt").text(" " + res.Request_ID);
+            },
+        });
+    }
+    function GetHistoryById(id) {
+        var param = id;
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetHistoryById/",
+            datatype: "json",
+            data: "id=" + param,
+            success: function (res) {
+                $("#lbl_requestid_txt").text(param);
+                $.each(res, function (index, val) {
+                    console.log(val.RequestHistoryStatus);
+                    markup = "<tr style='display:table;width:100%;table-layout:fixed'>" +
+                                "<td>" + val.RequestHistoryStatus + "</td>" +
+                                "<td>" + val.RequestHistoryStatus + "</td>" +
+                                "<td>Sept 4, 2020</td>" +
+                                "<td>Joshua Caruana</td>" +
+                                "<td>TMG Personnel</td>" +
+                             "</tr>";
+                    tableBody = $("#requestHistoryTable tbody");
+                    tableBody.append(markup);
+                });
+            },
+        });
+    }
+</script>

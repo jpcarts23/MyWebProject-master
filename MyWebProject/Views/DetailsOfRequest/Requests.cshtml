@@ -1,0 +1,77 @@
+﻿@using MyWebProject.Models
+@model DetailsOfRequest
+
+@{
+    ViewBag.Title = "Requests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2></h2>
+@using (Html.BeginForm("Create", "DetailsOfRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<fieldset>
+    <legend>Trade Marketing Request</legend>
+
+    <label style="color:dimgray">CHANNEL</label>
+    <div class="form-group">
+        @Html.DropDownListFor(model => model.Channel, DropDownList.ChannelList, "Select Channel", new { @class = "custom-select" })
+    </div>
+    <label style="color:dimgray">TITLE</label>
+    <div class="form-group">
+        @Html.DropDownListFor(model => model.Title, DropDownList.TitleList, "Select Title", new { @class = "custom-select" })
+    </div>
+    <label style="color:dimgray">DESCRIPTION</label>
+    <div class="form-group">
+        @Html.DropDownListFor(model => model.Description, DropDownList.DescriptionList, "Select Description", new { @class = "custom-select" })
+    </div>
+    <hr />
+    <label style="color:dimgray">COVERAGE PERIOD</label>
+    <div>
+        <label style="color:dimgray">Start Date :</label>
+        @Html.TextBoxFor(model => model.CoveragePeriodStart, new { @type = "date", @Value = Model.CoveragePeriodStart.ToString("yyyy-MM-dd") })
+        <label style="color:dimgray;padding-left: 50px">End Date :</label>
+        @Html.TextBoxFor(model => model.CoveragePeriodEnd, new { @type = "date", @Value = Model.CoveragePeriodEnd.ToString("yyyy-MM-dd") })
+    </div>
+    <hr />
+    <div class="form-group">
+        <label style="color:dimgray">GAME PLAN</label>
+        <br>@Html.TextBoxFor(model => model.GamePlan1, new { @type = "file", @name = "GamePlan", @multiple = "multiple", @class = "btn btn-primary", @style = "color:black" })
+        <input type="submit" class="btn btn-primary" name="submitGamePlan" value="Upload" />
+        <label>@Html.TextBoxFor(model => model.GamePlanPath, new { @style = "background-color:transparent;border-color:transparent" })</label>
+        <small class="form-text text-muted">@Html.DisplayFor(model => model.GamePlanValidation)</small>
+    </div>
+    <hr />
+    <div class="form-group">
+        <label style="color:dimgray">OTHER SUPPORTING DOCUMENTS</label>
+        <br>@Html.TextBoxFor(model => model.SupportingDocuments1, new { @type = "file", @name = "SupportingDocuments", @multiple = "multiple", @class = "btn btn-primary", @style = "color:black" })
+        <input type="submit" class="btn btn-primary" value="Upload" name="submitSupportingDocuments" />
+        <label id="sdp">@Html.TextBoxFor(model => model.SupportingDocumentsPath, new { @style = "background-color:transparent;border-color:transparent" })</label>
+        <small class="form-text text-muted">@Html.DisplayFor(model => model.SupportingDocumentsValidation)</small>
+    </div>
+    <hr />
+    <label style="color:dimgray">OBJECTIVES</label>
+    @Html.TextBoxFor(model => model.Objectives, new { @class = "form-control", @placeholder = "Objectives" })<br>
+    <label style="color:dimgray">MECHANICS</label>
+    @Html.TextBoxFor(model => model.Mechanics, new { @class = "form-control", @placeholder = "Mechanics" })<br>
+    <label style="color:dimgray">RESOURCES NEEDED</label>
+    @Html.TextBoxFor(model => model.ResourcesNeeded, new { @class = "form-control", @placeholder = "Resources Needed" })<br>
+    <label style="color:dimgray">AMOUNT</label>
+    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", @placeholder = "Amount" })<br>
+    <label style="color:dimgray">% COST TO SALES</label>
+    @Html.TextBoxFor(model => model.CostToSales, new { @class = "form-control", @placeholder = "Percentage Cost To Sales" })<br>
+    <label style="color:dimgray">ALLOCATED ANNUAL BUDGET</label>
+    @Html.TextBoxFor(model => model.AllocatedAnnualBudget, new { @class = "form-control", @placeholder = "Allocated Annual Budget" })<br>
+    <label style="color:dimgray">YTD EXPENSES</label>
+    @Html.TextBoxFor(model => model.YTDExpenses, new { @class = "form-control", @placeholder = "YTD Expenses" })<br>
+    <label style="color:dimgray">REMAINING BUDGET</label>
+    @Html.TextBoxFor(model => model.RemainingBudget, new { @class = "form-control", @placeholder = "Remaining Budget" })
+    <hr />
+    <label style="color:dimgray">DATE NEEDED</label>
+    <div>
+        @Html.TextBoxFor(model => model.DateNeeded, new { @class = "form-control", @type = "date", @Value = Model.DateNeeded.ToString("yyyy-MM-dd") })<br>
+    </div>
+    <hr />
+    <button type="submit" name="Send" value="Send" class="btn btn-primary" style="margin-bottom:10px;margin-right:10px">Submit</button>
+    <button type="submit" name="saveAsDraft" value="Save" class="btn btn-primary" style="margin-bottom:10px;margin-right:10px">Save as Draft</button>
+    <button type="reset" class="btn btn-secondary" style="margin-bottom:10px">Clear</button>
+</fieldset>
+}

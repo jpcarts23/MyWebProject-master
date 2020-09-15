@@ -1,0 +1,41 @@
+﻿@{
+    if (Session["Id"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+    Layout = "~/Views/Shared/_HeaderLayout.cshtml";
+}
+<div class="container body-content">
+    @*<div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav center-block">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="~/Home/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/DetailsOfRequest/Requests">Request</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Home/Status">Status</a>
+                    </li>
+                    <li class="nav-item" style="display:@Session["Validate"]">
+                        <a class="nav-link" href="~/Home/ValidateRequest">Validate</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>*@
+    <div style="background-color:lightgray;border-radius:2px;padding:5px 10px 0px 10px">
+        @RenderBody()
+    </div>
+    @*<hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>*@
+</div>
+
